@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "tacoApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Taco Assembler</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container" ng-controller = "TacoController as ctrl">
+      <div class="row">
+        <div class="col"></div>
+        <h2 class="title">TacoAssembler 1.0</h2>
+      </div>
+      <div class="row subtitle">
+        Welcome to the Taco Assembler! Pick your ingredients, and click on the assemble button to create your very own custom taco. If you're feeling adventurous, click on the randomize button and see what you get!
+      </div>
+      <br>
+      <div class="jumbotron">
+        <h4 class="subheading"> Pick a shell, base layer, and seasoning</h4>
+        <form>
+          <div class="form-group">
+              <label>Shell:</label>
+              <br>
+              <select ng-options="shell.name for shell in ctrl.shells" ng-model="ctrl.selectedShell">
+                <option value="">-- Shell Options--</option>
+              </select>
+              <br>
+          </div>  
+          <div class="form-group">
+              <label>Base Layer:</label>
+              <br>
+              <select ng-options="baselayer.name for baselayer in ctrl.baselayers" ng-model="ctrl.selectedBaselayer">
+                <option value="">-- Base Layer Options--</option>
+              </select>
+              <br>
+          </div> 
+          
+          <div class="form-group">
+            <label>Seasoning:</label>
+            <br>
+            <select ng-options="seasoning.name for seasoning in ctrl.seasonings" ng-model="ctrl.selectedSeasoning">
+              <option value="">-- Seasoning Options--</option>
+            </select>
+            <br>
+          </div> 
+        </form>
+
+        <hr>
+
+        <h4 class="subheading">Add in as many mix-ins and condiments as you want. To make multiple selections, hold down the Ctrl key.</h4>
+        <form>
+          <div class="form-group">
+            <label>Mix-ins:</label>
+            <br>
+            <select multiple ng-options="mixin.name for mixin in ctrl.mixins" ng-model="ctrl.selectedMixin" >
+              <option value="">-- Mix-in Options--</option>
+            </select>
+            <br>
+          </div> 
+          <div class="form-group">
+            <label>Condiments:</label>
+            <br>
+            <select multiple ng-options="condiment.name for condiment in ctrl.condiments" ng-model="ctrl.selectedCondiment">
+              <option value="">-- Condiment Options--</option>
+            </select>
+            <br>
+          </div>    
+        </form>
+        
+        <hr>
+
+        <h4 class="subheading">Assemble your custom taco or randomize!</h4>
+        <div style="text-align:center;">
+          <button type="button" ng-click = "ctrl.assembleTaco()" class="btn btn-primary taco-btn">
+                Assemble
+          </button>
+          <button type="button" ng-click = "ctrl.getRandomTaco()" class="btn btn-primary taco-btn">
+              Randomize
+          </button>
+        </div>
+        
+        <br>
+        <hr>
+        
+        <h4 class="subheading">Current Tacos</h4>
+        <div class="well">
+          <div ng-if="ctrl.tacos">
+            <span ng-repeat="taco in ctrl.tacos">
+              <div class="row">
+                <div class="col-xs-10">
+                  {{taco}}
+                </div>
+                <div class="col-xs-1">
+                  <button ng-click="ctrl.tacos.splice($index, 1)" aria-label="Remove" class="btn btn-default btn-sm">X</button>
+                </div>
+              </div>
+              <br>
+            </span>
+          </div>
+          <div ng-if="ctrl.tacos.length==0">You currently have no tacos :(</div>
+        </div>
+      </div>
+    
+    </div>
+    <script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://chancejs.com/chance.min.js"></script>
+    
+  </body>
+</html>
